@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-br" >
+<head>
+ <link rel="stylesheet" href="font/font-awesome/css/font-awesome.min.css">
+
+ <link rel="stylesheet" href="css/w3.css" type="text/css">
+  <link rel="stylesheet" href="css/w4.css" type="text/css">
+ 
+ 
+ <style>
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+
+hr{
+  border: 1px solid;
+  }
+body, h1,h2,h3,h4,h5,h6 {font-family: "Arial", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 120px;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 120px}
+/* Remove margins from "page content" on small screens */
+@media only screen and (max-width: 600px) {#main {margin-left: 0} body {
+    height: 100%;
+  }  }
+
+.open-button {
+  color: teal;
+  padding: 2px 2px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+ bottom: 35px;
+  right: 10px;
+  border-radius: 4px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container text {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.footer2 {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background: teal;
+   opacity: 0.8;
+   text-align: center;
+}
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+  z-index: 99;
+  font-size: 25px;
+  border: none;
+  outline: none;
+  background-color: teal;
+  color: white;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  opacity: 0.8;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+.fa-hand-o-right  {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 1s infinite linear;
+    -o-animation: bounce 1s infinite linear;
+    -webkit-animation: bounce 1s infinite linear;
+    animation: bounce 1s infinite linear;
+}
+
+@-webkit-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@-moz-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@-o-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@-ms-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+.fa-hand-o-left{
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 1s infinite linear;
+    -o-animation: bounce 1s infinite linear;
+    -webkit-animation: bounce 1s infinite linear;
+    animation: bounce 1s infinite linear;
+}
+
+@-webkit-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@-moz-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-o-keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+@-ms-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@keyframes bounce {
+    0% { left: 0; }
+    50% { left: -0.2em; }
+    70% { left: -0.3em; }
+    100% { left: 0; }
+}
+
+
+.fa-book{
+	display: inline-block;
+	-moz-animation: pulse 2s infinite linear;
+	-o-animation: pulse 2s infinite linear;
+	-webkit-animation: pulse 2s infinite linear;
+	animation: pulse 2s infinite linear;
+}
+
+@-webkit-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-moz-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-o-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-ms-keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes pulse {
+	0% { opacity: 1; }
+	50% { opacity: 0; }
+	100% { opacity: 1; }
+}
+</style>
+</head>
+<body onload="cite()"><button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i>TOPO</button>
+
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+
+
+</script>
+<script>
+function texto_aleatorio(){ 
+   var textos = new Array() 
+   
+
+   aleat = Math.random() * (textos.length) 
+   aleat = Math.floor(aleat) 
+
+document.write(textos[aleat]) 
+} 
+</script>
+<script>
+var imagens = [
+  
+  "Quem olha para fora sonha,<br> quem olha para dentro desperta.<br> <b>'Carl Jung'</b>", 
+   "Conheça todas as teorias, domine todas as técnicas,<br> mas ao tocar uma alma humana, <br> seja apenas outra alma humana.<br> <b>'Carl Jung'</b>", 
+   "Não me pergunte quem sou <br>e não me diga para permanecer o mesmo.<br> <b>'Michel Foucault'</b>", 
+   "Nenhuma técnica psicológica <br>funcionará se o amor não funcionar.<br> <b>'Augusto Cury'</b>",
+  "É parte da cura o desejo de ser curado.<br> <b>'Sêneca'</b>", 
+    "Ninguém chegou a ser sábio por acaso. <br><b>'Sêneca'</b>", 
+   "O homem que sofre antes de ser necessário,<br> sofre mais que o necessário.<br> <b>'Sêneca'</b>",
+    "Se quer ser amado, ame.<br> <b>'Sêneca'</b>",
+   "Toda arte é imitação da natureza. <br><b>'Sêneca'</b>",
+    "A fome não é exigente:<br> basta contentá-la; como, não importa. <br><b>'Sêneca'</b>",
+   "Cala-te primeiro se queres que os outros se calem.<br> <b>'Sêneca'</b>",
+    "A medida do amor é amar sem medida.<br> <b>'Santo Agostinho'</b>",
+    "O Senhor oculta algumas coisas aos sábios, <br> mas as revela aos pequeninos.<br> <b>'Jesus Cristo'</b>",
+   "O que não provoca minha morte <br> faz com que eu fique mais forte. <br><b>'Friedrich Nietzsche'</b>", 
+    "Imagine uma nova história para sua vida e acredite nela. <br><b>'Paulo Coelho'</b>",
+    "Quantas coisas perdemos por medo de perder.<br> <b>'Paulo Coelho'</b>",
+   "Não espere por uma crise para descobrir <br> o que é importante em sua vida.<br> <b>'Platão'</b>",
+    "Pessimismo leva à fraqueza, otimismo ao poder.<br> <b>'William James'</b>",
+    "O otimismo é a fé em ação.<br>  Nada se pode levar a efeito sem otimismo.<br> <b>'Helen Keller'</b>",
+    "Só há um tempo em que é fundamental despertar.<br> Esse tempo é agora. <br><b>'Buda'</b>",
+    "O que somos é consequência do que pensamos.<br> <b>'Buda'</b>",
+    "A paz vem de dentro de você mesmo.<br> Não a procure à sua volta.<br> <b>'Buda'</b>",
+   "Não sou nem ateniense, nem grego, <br> mas sim um cidadão do mundo.<br> <b>'Sócrates'</b>",
+    "Conhece-te a ti mesmo <br> e conhecerás o universo e os deuses.<br> <b>'Sócrates'</b>",
+    "A imaginação é mais importante que o conhecimento.<br> <b>'Albert Einstein'</b>",
+    "A natureza não faz nada em vão. <br><b>'Aristóteles'</b>",
+    "Com organização e tempo,<br> acha-se o segredo de fazer tudo e bem feito.<br> <b>'Pitágoras'</b>",
+   "Não é livre quem não obteve domínio sobre si.<br> <b>'Pitágoras'</b>",
+    "Tudo vale a pena quando a alma não é pequena.<br> <b>'Fernando Pessoa'</b>",
+   "A mente que se abre a uma nova idéia <br> jamais voltará ao seu tamanho original.<br> <b>'Oliver Wendell Holmes Sr.'</b>",
+    "Todas as graças da mente e do coração <br> se escapam quando o propósito não é firme.<br> <b>'William Shakespeare'</b>", 
+   "A sorte favorece a mente bem preparada.<br> <b>'Louis Pasteur'</b>",
+   "O primeiro dos bens, depois da saúde, é a paz interior.<br> <b>'François La Rochefoucauld'</b>",
+   "Que seu alimento seja seu remédio.<br> <b>'Hipócrates'</b>",
+    "A felicidade nada mais é do que boa saúde e memória fraca.<br> <b>'Desconhecido'</b>",
+   "Tente o SIM, pois o NÃO você já possui.<br> <b>'Desconhecido'</b>" ,
+    "Tudo o que a mente humana pode conceber,<br> ela pode conquistar.<br> <b>'Napoleon Hill'</b>", 
+   "Mente humana, como pára-quedas:<br> funciona melhor aberta.<br> <b>'Charlie Chan'</b>",
+   "Poderosa e grande é a mente humana! <br> Pode construir e pode destruir.<br> <b>'Napoleon Hill'</b>",
+  "Quem desiste nunca vence e <br> só vence quem nunca desiste.<br> <b>'Napoleon Hill'</b>",
+   "Poeira ao vento (Dust In The Wind) <br> Tudo o que somos é poeira ao vento<br> <b>'Kansas'</b>" 
+];
+function cite() {
+document.getElementById("citacao").innerHTML = "'" + imagens[Math.floor(Math.random() * imagens.length)] + "'";
+var intervalo = setInterval(function() { 
+  document.getElementById("citacao").innerHTML = "'" + imagens[Math.floor(Math.random() * imagens.length)] + "'";
+ }, 12000);
+ }
+
+</script> 
+
+ <div class="w3-display-container ">
+   
+    <center>
+      <img src="assets/images/profile.png" alt="setembro amarelo" class=" w3-hover-sepia" width="100" height="100">
+    <div class="w3-display-bottommiddle w3-justify w3-opacity"><blink><center><cite><p id="citacao">'A mente que se abre a uma nova idéia <br> jamais voltará ao seu tamanho original.<br> <b>'Oliver Wendell Holmes Sr.'</b>'</p></cite></center></blink><p></p><p></p></div>
+  </div>
+
+<section>
+
+
+  
+<div class="container">
+ <div class="w3-container">
+  
+  <div class="w3-display-container ">
+ <!-- About Section -->
+ <div class="w3-padding-44 w3-content " id="about">
+    <h3><a href="#about" class="w3-bar-item w3-button" >SOBRE MIM</a></h3>
+    <hr style="width:100%" class="w3-opacity">
+    
+    
+    <p>Meu nome é Rodrigo Faustino sou hipnoterapeuta com várias certificações entre as mais relevantes o DEHI - Dave Elman Hypnosis Institute dado pelo psicólogo e um dos instrutores de hipnose mais renomados no Brasil e no mundo Alberto Dell'Isola.
+</p><p>
+Atualmente estou me graduando em psicologia para melhorar a prática clínica e encontrar novas formas de usar esta ferramenta para trazer saúde mental para mais pessoas.
+</p><p>
+- Hipnotista certificado em Hipnose Rápida e Instantânea, pelo Instituto Elsever - Alberto Dell'isola.
+</p><p>
+- Hipnoterapeuta certificado pelo Hipnose Institute - Guilherme Alves (Técnicas de Regressão).
+</p><p> - Hipnoterapeuta certificado pelo Hipnose Institute - James Tripp (Técnicas de Hipnose sem transe). 
+    </p>
+	 </div>
+	 <div class="w3-padding-44 w3-content " id="hipnose">
+    <h3><a href="#hipnose" class="w3-bar-item w3-button" >A HIPNOSE PODE AJUDAR</a></h3>
+    <hr style="width:100%" class="w3-opacity">
+    
+	
+	<p>Atualmente a ciência já entende que mais de 53% das doenças físicas são de fundo emocional. A hipnoterapia é de grande auxílio no tratamento de: (clique abaixo)</p>
+	
+
+
+  <button1 onclick="myFunction('Demo2')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Disfunções sexuais</button1>
+<div id="Demo2" class="w3-hide w3-pale-green w3-animate-zoom">
+ <p>Disfunções sexuais de fundo emocional, Essas disfunções podem surgir em qualquer momento da vida e por diversos fatores, muitas vezes quando não é estritamente fisica ela pode ter iniciado por um problema psicologico, neste caso a hipnose clinica pode ajudar.</p><b><a href="tag/hipnose-e-falta-de-orgasmo/">  </a><p></p></b>
+  </div>
+  
+  
+  <button1 onclick="myFunction('Demo4')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Fobias</button1>
+<div id="Demo4" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Fobias, é um medo persistente e irracional de um determinado objeto, animal, atividade ou situação que represente pouco ou nenhum perigo real, mas que, mesmo assim, provoca ansiedade extrema.</p><b><a href="tag/fobias/">  </a><p></p></b>
+  </div>
+   <button1 onclick="myFunction('Demo5')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Gagueira</button1>
+<div id="Demo5" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Gagueira, é um distúrbio na temporalização da fala que afeta a fluência e a comunicação. A temporalização significa o tempo de execução dos sons, sílabas, palavras e frases. Quando este não estiver relacionando a problemas fisicos fonológico de ordem motora, e sim de ordem emocional a hipnose pode ajudar a tratar.</p>
+  </div>
+   <button1 onclick="myFunction('Demo12')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Hipnose contra Dor</button1>
+<div id="Demo12" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Dor, muitas pessoas sofrem com diversos tipos de dores corporais com fundo emocional, se a dor for sem nenhuma causa biológica ela tem grande probabilidade de ser causa emocional e sendo assim a hipnose pode ajudar a controlar ou aliviar os sintomas.</p> <b><a href="tag/dor/">  </a></b>
+  </div>
+ <button1 onclick="myFunction('Demo6')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Insônia</button1>
+<div id="Demo6" class="w3-hide w3-pale-green w3-animate-zoom">
+ <p>Insônia, é um distúrbio persistente que prejudica a capacidade de uma pessoa adormecer ou, ainda, de permanecer dormindo durante toda a noite.</p>
+  </div>
+ <button1 onclick="myFunction('Demo7')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Pânico</button1>
+<div id="Demo7" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Pânico, faz com que a pessoa sinta um medo muito grande associado à ansiedade que pode durar alguns minutos e até uma hora. geralmente a pessoa acha que vai morrer.</p><b><a href="tag/panico/">  </a><p></p></b>
+  </div>
+   <button1 onclick="myFunction('Demo8')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Perder peso</button1>
+<div id="Demo8" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Perder peso com hipnose, neste caso, a hipnose tem o objetivo de ajudar a pessoa a resistir a tentações específicas, como sorvetes, batatinhas ou bolos ingeridos compulsivamente. Outra aplicação mais avançada da hipnose, é para que a pessoa acredite que existe um balão intragástrico dentro do estômago. O balão real preenche o estômago e a pessoa não consegue mais comer muito. Este, porém, é imaginário, inserido por meio da hipnose,</p> <b><a href="tag/hipnoseemagrecer/">  </a></b>
+  </div>
+  <button1 onclick="myFunction('Demo11')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Passar em provas e Concursos</button1>
+<div id="Demo11" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Concursos e vestibulares, é um sonho buscado por muitos, mas a ansiedade tem sido um grande vilão desta realização, mas a hinoterapia pode ajudar a passar em provas.</p> <b><a href="tag/passaremprovas/">  </a></b>
+  </div>
+ <button1 onclick="myFunction('Demo9')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Regressão</button1>
+<div id="Demo9" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Regressão de idade ou Regressão vidas passadas, caso você perceba que existe alguma coisa travando sua vida, e isso está na sua memória, talvez a regressão seja a resposta, 
+  é uma das tecnicas mais utilizadas para resignificar (alterar o significado emocional de traumas e fobias) geralmente é revivido ou relembrado de forma vivida a experiência passada para que se mude o seu significado emocional. <b>mesmo sem comprovação ou evidência científica. tem ajudado muitas pessoas a ressignicar suas suas emoções, por mais que a hipnose tenha evidência para tratar muitos problemas, a regressão não tem evidências.</b></p>
+  </div>
+  <button1 onclick="myFunction('Demo10')" class="w3-button w3-block  w3-left-align"><i class="fa fa-hand-o-right" aria-hidden="true"></i><i class="fa fa-book" aria-hidden="true"></i> Vícios</button1>
+<div id="Demo10" class="w3-hide w3-pale-green w3-animate-zoom">
+  <p>Vícios, é um hábito repetitivo que degenera ou causa algum prejuízo ao viciado e aos que com ele convivem, hoje em dia não está estrito a somente o uso de drogas.</p>
+  </div>
+ 
+  
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+
+<script>
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+	
+	
+  </div>
+ 
+ <!-- Container (Portfolio Section) -->
+
+	
+  <!-- Contact Section -->
+    <div class="w3-padding-44 w3-content " id="avaliacao">
+    <h3><a href="#avaliacao" class="w3-bar-item w3-button" >AVALIAÇÕES</a></h3>
+    <hr style="width:100%" class="w3-opacity">
+    
+
+  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+  <div class="w3-row-padding w3-center">
+    <div class="w3-col m3">
+     <img src="assets/images/avaliacao1.png" style="width:50%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose contra ansiedade"> 
+     
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose para reprogramação mental">
+      
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao3.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose para reprogramação mental">
+    
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao4.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose para passar em provas e concursos">
+     
+    </div>
+  </div>
+
+  <div class="w3-row-padding w3-center w3-section">
+     <div class="w3-row-padding w3-center">
+    <div class="w3-col m3">
+     <img src="assets/images/avaliacao5.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose para auto estima"> 
+     
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao6.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose contra ansiedade">
+     
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao7.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose contra pânico e ansiedade">
+      
+    </div>
+
+    <div class="w3-col m3">
+      <img src="assets/images/avaliacao8.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Hipnose contra depressão">
+     
+    </div>
+    
+    
+  </div>
+    
+  </div>
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+ 
+ 
+ 
+  <!-- Portfolio Section -->
+  <div class="w3-padding-44 w3-content " id="fotos">
+    <h3><a href="#fotos" class="w3-bar-item w3-button" >FOTOS</a></h3>
+    <hr style="width:100%" class="w3-opacity">
+  
+<style>
+.mySlides {display:none;}
+</style>
+
+<div class="w3-content w3-display-container">
+
+<div class="w3-display-container mySlides w3-animate-fading w3-center" onload="move()" style="display: block;">
+  <img src="assets/images/9.jpg" style="width:50%">
+  <div class="w3-display-middle w3-large w3-container w3-padding-26 w3-teal">
+   
+  </div>
+</div>
+<div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/8.jpg" style="width:50%">
+  <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-black">
+    
+  </div>
+</div>
+<div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/9.jpg" style="width:50%">
+  <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-black">
+    
+ </div>
+</div>
+  
+<div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/10.jpg" style="width:50%">
+  <div class="w3-display-bottomright w3-large w3-container w3-padding-16 w3-black">
+    
+ </div>
+</div>
+<div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/11.jpg" style="width:50%">
+  <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+   
+  </div>
+</div>
+  
+  <div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/12.jpg" style="width:50%">
+  <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+   
+  </div>
+</div>
+  
+  <div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/13.jpg" style="width:50%">
+  <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+</div>
+</div>
+  <div class="w3-display-container mySlides w3-animate-fading w3-center" style="display: none;">
+  <img src="assets/images/hipnose-clinica-5-sp.jpg" style="width:80%">
+  <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-black">
+   
+  </div>
+</div>
+
+
+
+
+<button class="w3-button w3-display-left w3-black w3-opacity" onclick="plusDivs(-1)"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+<button class="w3-button w3-display-right w3-black w3-opacity" onclick="plusDivs(1)"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+</div>
+</div>
+ 
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 1;
+  var id = setInterval(frame, 1000);
+  function frame() {
+    if (width >= 100) {
+      clearInterval(id);
+	  setTimeout('location.reload();', 2000);
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+    }
+	 
+  }
+ 
+}
+</script>
+
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 15000);    
+}
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
+
+
+<a class="open-button" href="#contato"><i class="fa fa-envelope" style="font-size:50px;"></i></a>
+    
+	
+  <!-- Contact Section -->
+    <div class="w3-padding-44 w3-content " id="contato">
+    <h3><a href="#contato" class="w3-bar-item w3-button" >CONTATO</a></h3>
+    <hr style="width:100%" class="w3-opacity">
+
+    <div class="w3-section">
+      <p><a href="https://www.google.com/maps/place/Hipnose+cl%C3%ADnica+-+Rodrigo+Faustino/@-23.581608,-46.6399507,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x58ce588d960cb029!8m2!3d-23.581608!4d-46.637762" target="_blank"><i class="fa fa-map-marker fa-fw  w3-xxlarge w3-margin-right"></i></a> São Paulo - SP</p>
+       
+       <span class="bc-text-center"><a href="https://api.whatsapp.com/send?phone=+5511942139091" target="_blank" ><i class="fa fa-whatsapp fa-fw  w3-xxlarge w3-margin-right"></i>Whatsapp</a></span>
+
+      <p><i class="fa fa-envelope fa-fw  w3-xxlarge w3-margin-right"> </i> Email: contato@rodrigofaustino.com.br</p>
+    </div><br>
+    <p>Envie sua mensagem, responderei o mais breve possivel:</p>
+
+    <!--<form action="envia.php"  method="post">-->
+    <form method="post" onsubmit="return postTese2();">
+      <p><input class="w3-input w3-padding-14" type="text" placeholder="Nome" required="" name="nomeremetente"></p>
+      <p><input class="w3-input w3-padding-14" type="text" placeholder="Email" required="" name="emailremetente"></p>
+      <p><input class="w3-input w3-padding-14" type="text" placeholder="Assunto" required="" name="assunto"></p>
+      <p><input class="w3-input w3-padding-14" type="text" placeholder="Mensagem" required="" name="mensagem"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> Enviar </button>
+      </p>
+    </form>
+     <script type="text/javascript">
+    $(document).ready(function() {
+       $('.close').click(function () {
+           $('.valida').remove();
+           $('.abrir').slideToggle();
+       });
+    });
+    function postTese2() {
+        var campo1 = $('input[name="nomeremetente"]').val();
+        var campo2 = $('input[name="emailremetente"]').val();
+        var campo3 = $('input[name="assunto"]').val();
+        var campo4 = $('input[name="mensagem"]').val();
+        $.ajax({
+            data: {nomeremetente: campo1, emailremetente: campo2, assunto: campo3, mensagem: campo4},
+            url: 'envia.php',
+            dataType: 'html',
+            type: 'POST',
+            beforeSend: function () {
+                $('.mostrapost').html("<div class=\"Enviar\"></div>");
+                $('.abrir').slideToggle();
+            },
+            success: function (data) {
+                $('.mostrapost').html(data);
+             $('input[name="nomeremetente"]').val('');
+        $('input[name="emailremetente"]').val('');
+        $('input[name="assunto"]').val('');
+         $('input[name="mensagem"]').val('');
+            }
+        });
+        return false;
+    }
+</script>
+
+
+<div class="abrir" style="display:none; font-size: 2em; ">
+    
+    <div class="mostrapost"></div>
+</div>
+  <!-- End Contact Section -->
+  </div>
+  <!-- Contact Section -->
+<button class="w3-button w3-light-grey w3-padding-large w3-section">
+      <a href="tag/ebook" target="_blank" style="font-size:18px;color:red"><i class="fa fa-book"></i> Ler os ebooks aqui<i class="fa fa-book"></i>
+    </a></button>
+  <button class="w3-button w3-light-grey w3-padding-large w3-section">
+      <a href="tag/sono" target="_blank"><i class="fa fa-download"></i> Ebook O poder do sono<i class="fa fa-book"></i>
+    </a></button>
+	<button class="w3-button w3-light-grey w3-padding-large w3-section">
+      <a href="tag/sonho" target="_blank"><i class="fa fa-download"></i> Ebook O poder dos sonhos lúcidos<i class="fa fa-book"></i>
+    </a></button>
+    <button class="w3-button w3-light-grey w3-padding-large w3-section">
+      <a href="tag/cerebro" target="_blank"><i class="fa fa-arrow-left" style="font-size:18px;color:red"></i> Apresentação Cérebro &amp; Mente <i class="fa fa-arrow-right" style="font-size:18px;color:red"></i>
+    </a></button>
+    <br><br>
+    
+
+
+</body></html>

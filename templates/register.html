@@ -1,0 +1,55 @@
+      <div class="container">
+                    <div class="item ml-5 mr-5 mb-5">
+                      <center><h2>Cadastrar</h2></center>
+                        <form id="register_user" method="post">
+                            <div class="form-group">
+                                <label for="email">Nome</label>
+                                <input type="text" class="form-control" id="reg_name" name="name" placeholder="Enter name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="reg_email" name="email" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input type="password" class="form-control" id="reg_password" name="password" placeholder="Enter password" required>
+                            </div>
+                            <center>
+                                <button type="submit" class="btn btn-success">Cadastrar</button>
+                            </center>
+                            <div id="register_msg" class="pt-4"></div>
+                        </form>
+                    </div>
+                </div>
+
+        <script type="text/javascript">
+            "use strict";
+
+            $("#register_user").submit(function(e) {
+             e.preventDefault();
+
+             var formData = new FormData(this);
+             $.ajax({
+              url: 'ajax/register.php',
+              type: 'POST',
+              data: formData,
+              success: function(data) {
+               var response = JSON.parse(data);
+               if (response.status == '1') {
+               
+                get_posts(start, end);
+
+                $("#register_msg").html('<center><span class="badge badge-success"><h6 class="text-white">Cadastrado com Sucesso.</h6></span></center>');
+               }
+               else
+               {
+                    $("#register_msg").html('<center><span class="badge badge-danger"><h6 class="text-white">Não pode cadastrar</h6></span></center>');
+               }
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+             });
+        });
+
+        </script>

@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="item mb-5">
+    <form id="post_data" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="email">Titulo</label>
+        <input type="name" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="form-group">
+        <label for="comment">Descrição</label>
+        <textarea class="form-control ckeditor" rows="10" id="description" name="description" required></textarea>
+      </div>
+      <script type="text/javascript">
+      </script>
+      <label class="file-upload btn btn-primary">
+        Procurar Imagem ...
+        <input type="file" name="post_image" accept="image/*"/>
+      </label>
+      <center><img id="loading_img" src="assets/images/loading.gif" style="display: none;">
+    </span>
+    <br>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    </center>
+  </form>
+</div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function()
+            {
+                $('#description').summernote({
+                    height :300
+                });
+            });
+
+    $("form#post_data").submit(function(e) {
+             e.preventDefault();
+
+             $("#loading_img").show(500);
+
+             var formData = new FormData(this);
+             $.ajax({
+              url: 'ajax/add-post.php',
+              type: 'POST',
+              data: formData,
+              success: function(data) {
+               var response = JSON.parse(data);
+               if (response.status == '1' || response.status == '2') {
+                $("#loading_img").hide(500);
+                get_posts(start, end);
+                $("html, body").animate({
+                 scrollTop: 0
+                }, "slow");
+                $("#post_data").trigger('reset');
+               }
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+             });
+            });
+</script>

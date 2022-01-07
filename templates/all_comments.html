@@ -1,0 +1,80 @@
+<div class="container">
+	<div class="item mb-5">
+		<table id="user_comments_table" class="cell-border" style="width:100%">
+			<thead>
+				<tr>
+					<th>slno</th>
+					<th>Postado por</th>
+					<th>Titulo da Postagem</th>
+					<th>Comentario</th>
+					<th>Status</th>
+					
+				</tr>
+			</thead>
+			<tbody id="comment_data_tbody">	
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	"use strict";
+		get_all_comments();
+    function get_all_comments()
+	{
+	$.ajax({
+		  url: 'ajax/get_user_comments.php',
+		  type: 'POST',
+		  data: {user_slno:'ALL'},
+		  success: function(data) {
+		   var comments = JSON.parse(data);
+		   var str = "";
+		   var count = 1;
+		   for (var i = 0; i < comments.length; i++) {
+		    str += ' <tr> <td>'+count+'</td><td>'+comments[i].user_name+'</td><td>'+comments[i].post_title+'</td><td>'+comments[i].comment+'</td><td>'+comments[i].comment_status+'</td></tr>';
+		    count++;
+		  }
+
+		  $('#comment_data_tbody').html('');
+		  $('#comment_data_tbody').html(str);
+
+		   $('#user_comments_table').DataTable();
+		 }
+	});
+	}
+
+	$(document).on("click",".slider",function()
+	{
+		var comment_slno = $(this).data('comment_slno');
+		var status = $(this).data('status');
+		var update_status;
+		var checkbox;
+
+		if(status == '1')
+			update_status = '0';
+		else
+			update_status = '1';
+
+		console.log(update_status);
+			if(update_status =='1')
+		     checkbox = "checked";
+
+		 $("#comment_status"+comment_slno).html("<label class='switch'><input type='checkbox' "+checkbox+" class='comment_status'><span class='slider round' data-status="+update_status+" data-comment_slno="+comment_slno+"></span></label>");
+
+		$.ajax({
+		  url: 'ajax/update_comment_status.php',
+		  type: 'POST',
+		  data: {comment_slno:comment_slno,comment_status:update_status},
+		  success: function(data) {
+		   var comments = JSON.parse(data);
+
+		 }
+	});
+	});
+	
+
+
+
+
+</script>

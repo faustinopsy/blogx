@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="item mb-5">
+		<table id="user_comments_table" class="cell-border" style="width:100%">
+			<thead>
+				<tr>
+					<th>slno</th>
+					<th>Postado por</th>
+					<th>Titulo da Postagem</th>
+					<th>Comentário</th>
+					<th>Status</th>
+					
+				</tr>
+			</thead>
+			<tbody id="comment_data_tbody">
+				
+				
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type = "text/javascript" >
+    "use strict";
+$(document).ready(function() {
+
+    $.ajax({
+        url: 'ajax/get_user_comments.php',
+        type: 'POST',
+        data: {
+            user_slno: localStorage.getItem("slno")
+        },
+        success: function(data) {
+            var comments = JSON.parse(data);
+            var str = "";
+            var count = 1;
+            for (var i = 0; i < comments.length; i++) {
+                str += ' <tr> <td>' + count + '</td><td>' + comments[i].user_name + '</td><td>' + comments[i].post_title + '</td><td>' + comments[i].comment + '</td><td>' + comments[i].comment_status + '</td></tr>';
+                count++;
+            }
+            $('#comment_data_tbody').html('');
+            $('#comment_data_tbody').html(str);
+            $('#user_comments_table').DataTable();
+        }
+    });
+}); 
+</script>

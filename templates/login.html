@@ -1,0 +1,66 @@
+		<div class="container">
+                    <div class="item ml-5 mr-5 mb-5">
+                        <center><h2>Login</h2></center>
+                        <form id="login_user" method="post">
+                            
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" id="reg_email" name="email" placeholder="Enter email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input type="password" class="form-control" id="reg_password" name="password" placeholder="Enter password" required>
+                            </div>
+                            <center>
+                                <button type="submit" class="btn btn-success">Entrar</button>
+                            </center>
+                            <div id="login_msg" class="pt-4"></div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+    <script type="text/javascript">
+            "use strict";
+            $("#login_user").submit(function(e) {
+             e.preventDefault();
+
+             var formData = new FormData(this);
+             $.ajax({
+              url: 'ajax/login.php',
+              type: 'POST',
+              data: formData,
+              success: function(data) {
+               var response = JSON.parse(data);
+               if (response.status == '1') {
+              
+
+               	localStorage.setItem("slno", response.slno);
+               	localStorage.setItem("role", response.role);
+                localStorage.setItem("name", response.name);
+               	
+               	get_posts(start, end);
+               	if(response.role == 'ADMIN')
+               	{
+               	$("#main_menu").load("templates/menu/admin_login_menu.html");
+                $("#user_name").html("ADMIN");
+               }
+               if(response.role == 'USER')
+               	{
+               	$("#main_menu").load("templates/menu/user_login_menu.html");
+                $("#user_name").html(response.name);
+               }
+               }
+               else
+               {
+               	$("#login_msg").html('<center><span class="badge badge-danger"><h6 class="text-white">Email ou senha Invalidos</h6></span></center>');
+               }
+              },
+              cache: false,
+              contentType: false,
+              processData: false
+             });
+        });
+
+        </script>
